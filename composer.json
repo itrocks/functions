@@ -1,0 +1,10 @@
+{
+	"authors":           [{ "email": "baptiste@pillot.fr", "name": "Baptiste Pillot" }],
+	"autoload":          { "files": ["src/*.php"] },
+	"description":       "useful advanced functions that could be built-in into php",
+	"license":           "LGPL-3.0-or-later",
+	"minimum-stability": "dev",
+	"name":              "itrocks/functions",
+	"repositories":      [{ "type": "composer", "url": "https://hub.itrocks.org" }],
+	"require":           { "php": "^8.0" }
+}
