@@ -384,50 +384,6 @@ function array_keys_all_numeric(array $array, bool $recurse = false) : bool
 	return true;
 }
 
-//--------------------------------------------------------------------------- array_merge_recursive
-/**
- * Merges two arrays, with recursion
- *
- * Elements of $array1 and $array2 with same index (even if numeric) :
- * $array2 element replaces $array1 element.
- * If $array2 element is an array : merge $array1 and $array2 array element, recursively.
- *
- * @param $array1 array
- * @param $array2 array
- * @param $clear  string|null You can tell a value that clears every data from $array1 before merge
- * @return array
- */
-function array_merge_recursive(array $array1, array $array2, string $clear = null) : array
-{
-	foreach ($array2 as $index => $value2) {
-		if ($clear && ($value2 === $clear)) {
-			$array1 = null;
-			unset($array2[$index]);
-		}
-		else {
-			$value1 = $array1[$index] ?? null;
-			if (is_numeric($index) && !is_array($value1) && !is_array($value2)) {
-				if (!in_array($value2, $array1)) {
-					$array1[] = $value2;
-				}
-			}
-			elseif (is_array($value2)) {
-				$value2 = array_merge_recursive(is_array($value1) ? $value1 : [], $value2, $clear);
-				if (isset($value2)) {
-					$array1[$index] = $value2;
-				}
-				else {
-					unset($array1[$index]);
-				}
-			}
-			else {
-				$array1[$index] = $value2;
-			}
-		}
-	}
-	return $array1;
-}
-
 //------------------------------------------------------------------------------ array_named_values
 /**
  * Returns only values which key is not numeric
