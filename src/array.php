@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Baptiste Pillot <baptiste@pillot.fr>
- * @copyright Copyright (c) 2021, Baptiste Pillot
+ * @copyright Copyright (c) 2012-2022, Baptiste Pillot
  * @license https://opensource.org/licenses/LGPL-3.0 GNU Lesser General Public License version 3
  * @link https://it.rocks/reference/functions/array
  */
@@ -13,7 +13,7 @@
  * @param $string                          string The source string tu cut
  * @param $lengths                         integer[] The length of each element into the string
  * @param $ignore_characters               boolean|string Some characters to ignore. Optional
- * @param $get_trailing_characters_element boolean Gets the trailing characters element if true
+ * @param $get_trailing_characters_element boolean Gets the trailing characters' element if true
  * @return string[] The resulting array
  */
 function array_cut(
@@ -349,7 +349,7 @@ function array_insert_sorted_object(array &$array, object $object, array|callabl
 /**
  * Returns true if $array represents a callable :
  * - two elements
- * - first comes a valid name of a class (will be auto-loaded)
+ * - first comes a valid name of a class (will be loaded automatically)
  * - next comes an existing method name
  *
  * @param $array array
@@ -442,14 +442,11 @@ function array_set(mixed &$array, array $keys, mixed $init)
  */
 function array_sum_recursive(array $array) : float|int
 {
-	if (is_array($array)) {
-		$sum = 0;
-		foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $value) {
-			$sum += $value;
-		}
-		return $sum;
+	$sum = 0;
+	foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $value) {
+		$sum += $value;
 	}
-	return floatval($array);
+	return $sum;
 }
 
 //----------------------------------------------------------------------------------- array_to_tree
@@ -530,8 +527,8 @@ function explode_string_in_array_to_double_array(string $delimiter, array $array
 /**
  * Explode strings in array and return a larger array
  *
- * @example explode_string_in_array_to_simple_array(' ', ['Dot', 'a cat', 'the cat run'))
- *          returns : ['Dot', 'a', 'cat', 'the', 'cat', 'run')
+ * @example explode_string_in_array_to_simple_array(' ', ['Dot', 'a cat', 'the cat run'])
+ *          returns : ['Dot', 'a', 'cat', 'the', 'cat', 'run']
  * @param $array          array The input array
  * @param $word_separator string The boundary string
  * @return array Return a larger array explode by delimiter

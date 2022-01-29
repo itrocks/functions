@@ -1,17 +1,6 @@
 {
-	"authors":  [{ "email": "baptiste@pillot.fr", "name": "Baptiste Pillot" }],
-	"autoload": { "files": [
-		"src/array.php",
-		"src/constants.php",
-		"src/file.php",
-		"src/html.php",
-		"src/http.php",
-		"src/php.php",
-		"src/preg.php",
-		"src/string.php",
-		"src/type.php",
-		"src/var.php"
-	] },
+	"authors":           [{ "email": "baptiste@pillot.fr", "name": "Baptiste Pillot" }],
+	"autoload":          { "files": ["src/autoload.php"] },
 	"description":       "useful advanced functions that could be built-in into php",
 	"license":           "LGPL-3.0-or-later",
 	"minimum-stability": "dev",
