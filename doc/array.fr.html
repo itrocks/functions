@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<title>Fonctions sur les tableaux</title>
+</head>
+<body>
+
+	<article>
+		<h1>Fonctions sur les tableaux</h1>
+
+		<nav id="summary">
+			<ul>
+				<li><a href="#introduction">Introduction</a></li>
+				<li><a href="#installation">Installation</a></li>
+				<li><a href="#fonctions">Fonctions</a></li>
+			</ul>
+		</nav>
+
+		<section id="introduction">
+			<h2>Introduction</h2>
+			<p>
+				Ces fonctions vous permettent de travailler et de manipuler les tableaux de plusieurs façons.
+				Elles complètent le <a href="https://www.php.net/manual/fr/book.array">jeu de fonctions de
+				manipulation de tableaux</a> intégrées au langage de programmation PHP.
+			</p>
+		</section>
+
+		<section id="installation">
+			<h2>Installation</h2>
+			<code lang="bash">
+				composer install itrocks/functions
+			</code>
+		</section>
+
+		<section id="fonctions">
+			<h2>Fonctions</h2>
+
+			<nav id="functions-summary">
+				<ul>
+					<li><a href="#array_cut">array_cut</a></li>
+				</ul>
+			</nav>
+
+			<section id="array_cut">
+				<h3>array_cut</h3>
+				<section>
+					array_cut - Convertit chaîne de caractères en tableau, en connaissant la longueur de chaque
+					élément à extraire.
+				</section>
+				<section>
+					<h4>Description</h4>
+					<code lang="php">
+						array_cut(string $string, array $lengths,
+							[string $ignore_characters = '',] bool $get_trailing_characters_element = false)
+					</code>
+					<p>
+						Crée un tableau, dont les valeurs sont extraites de <code class="parameter">string</code>
+						par découpage de chaînes à largeur fixe définies par
+						<code class="parameter">lengths</code>.
+						Des caractères <code class="parameter">ignore_characters</code> peuvent être ignorés.
+						Il est possible de choisir si les caractères restants sont renvoyés dans un dernier
+						élément de tableau ou non grâce à
+						<code class="parameter">get_trailing_characters_element</code>.
+					</p>
+				</section>
+				<section>
+					<h4>Liste de paramètres</h4>
+					<dl>
+						<dt><code class="parameter">string</code></dt>
+						<dd>
+							La chaîne d'entrée.
+						</dd>
+						<dt><code class="parameter">lengths</code></dt>
+						<dd>
+							Longueur de chaque élément.
+						</dd>
+						<dt><code class="parameter">ignore_characters</code></dt>
+						<dd>
+							Une liste de caractères à ignorer avant de commencer le découpage. La longueur de chaque
+							élément ne doit pas tenir compte de ces caractères.
+						</dd>
+						<dt><code class="parameter">get_trailing_characters_element</code></dt>
+						<dd>
+							Si <code>true</code>, alors les caractères restants après extraction sont renvoyés dans
+							un dernier élément du tableau.
+						</dd>
+					</dl>
+				</section>
+				<section>
+					<h4>Valeurs de retour</h4>
+					<p>
+						Retourne le tableau de chaînes de caractères issues du découpage.
+					</p>
+					<p>
+						Si la chaîne de caractères <code class="parameter">string</code> est plus courte que la
+						somme des longueurs transmises dans <code class="parameter">lengths</code>, le dernier
+						élément retourné peut être plus court que la longueur prévue, et les éléments suivants
+						sont créés, mais contiennent une chaîne vide. Aucun élément supplémentaire n'est retourné
+						dans ce cas, même si <code class="parameter">get_trailing_characters_element</code> vaut
+						<code>true</code>.
+					</p>
+					<p>
+						Si la taille de la chaîne de caractères <code class="parameter">string</code>, déduite des
+						caractères à ignorer <code class="parameter">ignore_characters</code>, est supérieure à la
+						somme des longueurs transmises dans <code class="parameter">lengths</code>, un élément
+						supplémentaire est retourné, uniquement si
+						<code class="parameter">get_trailing_characters_element</code> vaut <code>true</code>.
+						Dans le cas contraire, ces caractères sont ignorés.
+					</p>
+				</section>
+				<section>
+					<h4>Exemples</h4>
+					<section>
+						<h5>Exemple #1 - Exemple simple</h5>
+						Dans cet exemple, on extrait les différentes composantes d'un
+						<a href="https://fr.wikipedia.org/wiki/ISO_9362">code BIC</a>
+						en vue d'en extraire le <a href="https://fr.wikipedia.org/wiki/ISO_3166">code pays</a>.
+						<pre><code lang="php">
+							$cut_bic_code = array_cut('CMCIFRPAXXX', [4, 2, 2, 3]);
+							# => ['CMCI', 'FR', 'PA', 'XXX']
+							echo "ISO 3166 country code is $cut_bic_code[1]\n";
+							# => 'ISO 3166 country code is FR'
+						</code></pre>
+						<h5>Exemple #2 - Exemple exhaustif</h5>
+						Ici, l'on suppose que le code BIC a pu être stocké avec des espaces ou tirets séparateurs,
+						et qu'on ne connaît pas la longueur de sa dernière composante 'XXX'. Le résultat sera le
+						même que dans l'exemple #1.
+						<pre><code lang="php">
+							$cut_bic_code = array_cut('CMCI-FR PA-XXX', [4, 2, 2], ' -', true);
+							# => ['CMCI', 'FR', 'PA', 'XXX']
+							echo "ISO 3166 country code is $cut_bic_code[1]\n";
+							# => 'ISO 3166 country code is FR'
+						</code></pre>
+					</section>
+				</section>
+			</section>
+
+		</section>
+
+	</article>
+
+</body>
+</html>
